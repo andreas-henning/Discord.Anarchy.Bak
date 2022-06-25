@@ -3,7 +3,7 @@ Anarchy-Core is an open source Discord API wrapper that targets .NET 6.0.
 
 It has REST, Gateway and media (although livestreaming functionality is limited) support, including user-only functions, making it the most capable wrapper by a long shot.
 
-Full source code can be found on [github](https://github.com/andreas-henning/Anarchy).
+Full source code can be found on [github](https://github.com/andreas-henning/Anarchy/tree/deployed).
 
 # Credits
 
