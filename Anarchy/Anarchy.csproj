@@ -14,7 +14,7 @@
 	  <PlatformTarget>AnyCPU</PlatformTarget>
 	  <NoWarn>IDE1006, CS0649, CS0414, IDE0051</NoWarn>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <PackageId>$(AssemblyName)-Core</PackageId>
+    <PackageId>Discord.Anarchy</PackageId>
     <Version>0.8.2.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Andreas-Henning</Authors>
