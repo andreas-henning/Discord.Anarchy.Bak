@@ -24,13 +24,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Leaf.xNet" Version="5.2.10" />
     <PackageReference Include="Microsoft.Maui.Graphics" Version="6.0.403" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -38,6 +31,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Update="Resources\nuget-logo.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
