@@ -58,7 +58,7 @@ namespace Discord
                             client.DefaultRequestHeaders.Add("Authorization", _discordClient.Token);
 
                         if (_discordClient.User != null && _discordClient.User.Type == DiscordUserType.Bot)
-                            client.DefaultRequestHeaders.Add("User-Agent", "Anarchy/0.8.1.2");
+                            client.DefaultRequestHeaders.Add("User-Agent", "Anarchy/0.8.2.0");
                         else
                         {
                             client.DefaultRequestHeaders.Add("User-Agent", _discordClient.Config.SuperProperties.UserAgent);
@@ -86,7 +86,7 @@ namespace Discord
                         HttpRequest msg = new()
                         {
                             IgnoreProtocolErrors = true,
-                            UserAgent = _discordClient.User != null && _discordClient.User.Type == DiscordUserType.Bot ? "Anarchy/0.8.1.2" : _discordClient.Config.SuperProperties.UserAgent,
+                            UserAgent = _discordClient.User != null && _discordClient.User.Type == DiscordUserType.Bot ? "Anarchy/0.8.2.0" : _discordClient.Config.SuperProperties.UserAgent,
                             Authorization = _discordClient.Token
                         };
 
