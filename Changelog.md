@@ -1,4 +1,8 @@
-## [TBD]
+## 0.8.2.0
+### Improvements
+- Basic image file attachment support
+
+## 0.8.1.4
 ### Improvements
 - Uses latest standard Visual Studio .gitignore from:
   https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
