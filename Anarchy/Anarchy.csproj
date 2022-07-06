@@ -15,7 +15,7 @@
 	  <NoWarn>IDE1006, CS0649, CS0414, IDE0051</NoWarn>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageId>$(AssemblyName)-Core</PackageId>
-    <Version>0.8.1.4</Version>
+    <Version>0.8.2.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Andreas-Henning</Authors>
     <PackageIcon>Resources\nuget-logo.png</PackageIcon>
