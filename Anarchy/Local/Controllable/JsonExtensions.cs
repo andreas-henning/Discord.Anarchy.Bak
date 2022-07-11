@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Text.Json.Nodes;
 
 namespace Discord
@@ -23,8 +24,8 @@ namespace Discord
         {
             if (TryFindTypes(typeof(T), out Dictionary<int, Type> types))
             {
-                int type = obj.Value<int>("type");
-                return (T)obj.ToObject(types.TryGetValue(type, out var t) ? t : typeof(T));
+                int type = obj["type"].GetValue<int>();
+                return (T)obj.Deserialize(types.TryGetValue(type, out var t) ? t : typeof(T));
             }
             else
                 throw new InvalidCastException("Unable to find any implementations for T");
@@ -32,7 +33,7 @@ namespace Discord
 
         public static List<T> MultipleDeterministic<T>(this /*JArray*/ JsonArray arr)
         {
-            List<T> results = new List<T>();
+            var results = new List<T>();
 
             foreach (/*JObject*/ JsonObject child in arr)
                 results.Add(child.ParseDeterministic<T>());

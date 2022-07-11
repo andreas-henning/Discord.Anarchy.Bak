@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 
 namespace Discord
 {
@@ -105,16 +105,16 @@ namespace Discord
                     {
                         var jsonAttr = (JsonPropertyNameAttribute)attr;
 
-                        if (jObj.TryGetValue(jsonAttr.Name, out /*JToken*/JsonNode value))
-                            property.SetValue(this, value.ToObject(property.PropertyType));
+                        if (jObj.TryGetPropertyValue(jsonAttr.Name, out /*JToken*/JsonNode value))
+                            property.SetValue(this, value.Deserialize(property.PropertyType));
 
                         break;
                     }
                 }
             }
 
-            if (jObj.TryGetValue("theme", out /*JToken*/JsonNode theme))
-                _theme = theme.ToObject<string>();
+            if (jObj.TryGetPropertyValue("theme", out /*JToken*/JsonNode theme))
+                _theme = theme.Deserialize<string>();
         }
     }
 }

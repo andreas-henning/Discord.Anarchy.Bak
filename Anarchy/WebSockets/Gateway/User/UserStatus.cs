@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Discord
 {
-    internal class UserStatusConverter : JsonConverter
+    internal class UserStatusConverter : JsonConverter<UserStatus>
     {
         private string ToString(UserStatus status)
         {
@@ -24,19 +24,19 @@ namespace Discord
                 return (UserStatus)Enum.Parse(typeof(UserStatus), status, true);
         }
 
-        public override void WriteJson(Utf8JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            writer.WriteValue(ToString((UserStatus)value));
-        }
-
-        public override object ReadJson(Utf8JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            return FromString(reader.Value.ToString());
-        }
-
         public override bool CanConvert(Type objectType)
         {
             return true;
+        }
+
+        public override UserStatus Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            return FromString(reader.GetString());
+        }
+
+        public override void Write(Utf8JsonWriter writer, UserStatus value, JsonSerializerOptions options)
+        {
+            writer.WriteRawValue(ToString((UserStatus)value));
         }
     }
 

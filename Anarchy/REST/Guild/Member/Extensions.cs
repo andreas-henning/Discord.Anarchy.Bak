@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using System.Text.Json.Nodes;
 
 namespace Discord
 {
@@ -69,7 +68,8 @@ namespace Discord
             foreach (var role in properties.IncludedRoles)
                 url += "&include_roles=" + role;
 
-            return (await client.HttpClient.GetAsync(url)).Deserialize</*JObject*/ JsonObject>().Value<uint>("pruned");
+            return (await client.HttpClient.GetAsync(url))
+                .Body["pruned"].GetValue<uint>();
         }
 
         public static uint GetGuildPrunableMembers(this DiscordClient client, ulong guildId, MemberPruneProperties properties)
@@ -81,7 +81,7 @@ namespace Discord
         public static async Task<uint> PruneGuildMembersAsync(this DiscordClient client, ulong guildId, MemberPruneProperties properties)
         {
             return (await client.HttpClient.PostAsync($"/guilds/{guildId}/prune", properties))
-                                    .Deserialize</*JObject*/ JsonObject>().Value<uint>("pruned");
+                .Body["pruned"].GetValue<uint>();
         }
 
         public static uint PruneGuildMembers(this DiscordClient client, ulong guildId, MemberPruneProperties properties)

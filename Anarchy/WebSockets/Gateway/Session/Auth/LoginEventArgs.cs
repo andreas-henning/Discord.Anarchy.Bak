@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
@@ -19,9 +20,9 @@ namespace Discord.Gateway
                 ConnectedAccounts.SetClientsInList(Client);
                 Presences.SetClientsInList(Client);
 
-                List<MinimalGuild> guilds = new List<MinimalGuild>();
+                List<MinimalGuild> guilds = new();
                 foreach (var obj in _guilds)
-                    guilds.Add((Client.User.Type == DiscordUserType.User ? obj.ToObject<SocketGuild>() : obj.ToObject<MinimalGuild>()).SetClient(Client));
+                    guilds.Add((Client.User.Type == DiscordUserType.User ? obj.Deserialize<SocketGuild>() : obj.Deserialize<MinimalGuild>()).SetClient(Client));
                 Guilds = guilds;
             };
         }

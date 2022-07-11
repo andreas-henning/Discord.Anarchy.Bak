@@ -6,7 +6,6 @@ using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Text.Json.Nodes;
 
 namespace Discord
 {
@@ -165,7 +164,7 @@ namespace Discord
             var resp = await client.HttpClient.PostAsync($"/channels/{channelId}/typing");
 
             if (resp.ToString().Contains("cooldown"))
-                throw new RateLimitException(resp.Deserialize</*JObject*/ JsonObject>().GetValue("message_send_cooldown_ms").ToObject<int>());
+                throw new RateLimitException(resp.Body["message_send_cooldown_ms"].GetValue<int>());
         }
 
         /// <summary>

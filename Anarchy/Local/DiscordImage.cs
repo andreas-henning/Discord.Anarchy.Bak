@@ -7,23 +7,21 @@ using Microsoft.Maui.Graphics.Platform;
 
 namespace Discord
 {
-    class ImageJsonConverter : JsonConverter
+    public class ImageJsonConverter : JsonConverter<DiscordImage>
     {
-        public override bool CanRead => false;
-
         public override bool CanConvert(Type objectType)
         {
             return true;
         }
 
-        public override object ReadJson(Utf8JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override DiscordImage Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
         }
 
-        public override void WriteJson(Utf8JsonWriter writer, object value, JsonSerializer serializer)
+        public override void Write(Utf8JsonWriter writer, DiscordImage value, JsonSerializerOptions options)
         {
-            writer.WriteValue(value.ToString());
+            writer.WriteRawValue(value.ToString());
         }
     }
 

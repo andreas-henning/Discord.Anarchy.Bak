@@ -5,8 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using Discord.Gateway;
 using System.Text.Json.Nodes;
+using Discord.Gateway;
 
 namespace Discord
 {
@@ -25,7 +25,7 @@ namespace Discord
         public DiscordOAuth2Client(ulong clientId, string clientSecret, DiscordSocketClient botClient = null)
         {
             if (botClient != null && botClient.User.Type != DiscordUserType.Bot)
-                throw new ArgumentException("The client must be using a bot account", "botClient");
+                throw new ArgumentException("The client must be using a bot account", nameof(botClient));
 
             _botClient = botClient;
 
@@ -37,7 +37,7 @@ namespace Discord
 
         private void authorize(string grantType, Dictionary<string, string> useSpecific)
         {
-            Dictionary<string, string> values = new Dictionary<string, string>()
+            Dictionary<string, string> values = new()
             {
                 { "client_id", _clientId.ToString() },
                 { "client_secret", _clientSecret },
@@ -84,7 +84,7 @@ namespace Discord
 
             DiscordHttpUtil.ValidateResponse((int)resp.StatusCode, bodyObj);
 
-            return bodyObj.ToObject<T>();
+            return bodyObj.Deserialize<T>();
         }
 
 

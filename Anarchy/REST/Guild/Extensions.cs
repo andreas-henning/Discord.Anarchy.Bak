@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Graphics.Platform;
-using System.Text.Json.Nodes;
 
 namespace Discord
 {
@@ -147,12 +148,14 @@ namespace Discord
 
         public static async Task<IReadOnlyList<DiscordChannelSettings>> SetPrivateChannelSettingsAsync(this DiscordClient client, Dictionary<ulong, ChannelSettingsProperties> channels)
         {
-            /*JObject*/ JsonObject container = new /*JObject*/ JsonObject
+            var doc = JsonSerializer.SerializeToDocument(channels);
+            /*JObject*/
+            JsonObject container = new()
             {
-                ["channel_overrides"] = /*JObject*/ JsonObject.FromObject(channels)
+                ["channel_overrides"] = /*JObject*/ JsonObject.Create(doc.RootElement)
             };
 
-            return (await client.HttpClient.PatchAsync($"/users/@me/guilds/@me/settings", container)).Deserialize</*JObject*/ JsonObject>()["channel_overrides"].ToObject<List<DiscordChannelSettings>>();
+            return (await client.HttpClient.PatchAsync($"/users/@me/guilds/@me/settings", container)).Body["channel_overrides"].Deserialize<List<DiscordChannelSettings>>();
         }
 
         public static IReadOnlyList<DiscordChannelSettings> SetPrivateChannelSettings(this DiscordClient client, Dictionary<ulong, ChannelSettingsProperties> channels)
@@ -246,7 +249,7 @@ namespace Discord
                 new MemoryStream(
                     await new HttpClient().GetByteArrayAsync(
                         (await client.HttpClient.GetAsync($"https://discordapp.com/api/v6/streams/guild:{guildId}:{channelId}:{userId}/preview?version=1589053944368"))
-                            .Deserialize</*JObject*/ JsonObject>().Value<string>("url")
+                            .Body["url"].GetValue<string>()
                     )
                 )
             );

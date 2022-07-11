@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 
 namespace Discord
 {
@@ -8,9 +9,10 @@ namespace Discord
     {
         public static async Task RingAsync(this DiscordClient client, ulong channelId, List<ulong> recipients)
         {
+            var doc = JsonSerializer.SerializeToDocument(recipients);
             await client.HttpClient.PostAsync($"/channels/{channelId}/call/ring", new /*JObject*/ JsonObject
             {
-                ["recipients"] = recipients == null ? null : /*JArray*/ JsonArray.FromObject(recipients)
+                ["recipients"] = recipients == null ? null : /*JArray*/ JsonArray.Create(doc.RootElement)
             });
         }
 
@@ -39,9 +41,10 @@ namespace Discord
 
         public static async Task StopRingingAsync(this DiscordClient client, ulong channelId, List<ulong> recipients)
         {
+            var doc = JsonSerializer.SerializeToDocument(recipients);
             await client.HttpClient.PostAsync($"/channels/{channelId}/call/stop-ringing", new /*JObject*/ JsonObject
             {
-                ["recipients"] = recipients == null ? null : /*JArray*/ JsonArray.FromObject(recipients)
+                ["recipients"] = recipients == null ? null : JsonArray.Create(doc.RootElement)
             });
         }
 

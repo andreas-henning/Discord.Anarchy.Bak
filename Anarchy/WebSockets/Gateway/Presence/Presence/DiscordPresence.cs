@@ -21,11 +21,11 @@ namespace Discord.Gateway
 
         public ulong UserId
         {
-            get { return _user["id"].ToObject<ulong>(); }
+            get { return _user["id"].GetValue<ulong>(); }
         }
 
 
-        private readonly DiscordParameter<List<DiscordActivity>> _activitiesParam = new DiscordParameter<List<DiscordActivity>>();
+        private readonly DiscordParameter<List<DiscordActivity>> _activitiesParam = new();
         [JsonPropertyName("activities")]
         [JsonConverter(typeof(DeepJsonConverter<DiscordActivity>))]
         private List<DiscordActivity> _activities
@@ -45,7 +45,7 @@ namespace Discord.Gateway
         }
 
 
-        private readonly DiscordParameter<UserStatus> _statusParam = new DiscordParameter<UserStatus>();
+        private readonly DiscordParameter<UserStatus> _statusParam = new();
         [JsonPropertyName("status")]
         public UserStatus Status
         {
@@ -59,7 +59,7 @@ namespace Discord.Gateway
         }
 
 
-        private readonly DiscordParameter<ActiveSessionPlatforms> _platformsParam = new DiscordParameter<ActiveSessionPlatforms>();
+        private readonly DiscordParameter<ActiveSessionPlatforms> _platformsParam = new();
         [JsonPropertyName("client_status")]
         public ActiveSessionPlatforms ActivePlatforms
         {

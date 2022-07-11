@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Nodes;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace Discord
 {
@@ -12,9 +13,9 @@ namespace Discord
             if (statusCode >= 400)
             {
                 if (statusCode == 429)
-                    throw new RateLimitException(body.Value<int>("retry_after"));
+                    throw new RateLimitException(body["retry_after"].GetValue<int>());
                 else
-                    throw new DiscordHttpException(body.ToObject<DiscordHttpError>());
+                    throw new DiscordHttpException(body.Deserialize<DiscordHttpError>());
             }
         }
     }

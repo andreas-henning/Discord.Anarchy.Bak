@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Text.Json.Nodes;
 
 namespace Discord
 {
@@ -54,7 +53,8 @@ namespace Discord
 
         public static async Task<string> AuthorizeAppAsync(this DiscordClient client, ulong appId, string scope)
         {
-            return (await client.HttpClient.PostAsync($"/oauth2/authorize?client_id={appId}&response_type=code&scope={scope}")).Deserialize</*JObject*/ JsonObject>().Value<string>("location");
+            var response = await client.HttpClient.PostAsync($"/oauth2/authorize?client_id={appId}&response_type=code&scope={scope}");
+            return (string)response.Body["location"];
         }
 
         /// <summary>

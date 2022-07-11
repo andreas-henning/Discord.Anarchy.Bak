@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using Discord.Gateway;
-using System.Text.Json.Nodes;
 
 namespace Discord
 {
@@ -78,26 +78,42 @@ namespace Discord
         };
     }
 
-    internal class DeepJsonConverter<T> : JsonConverter
+    internal class DeepJsonConverter<T> : JsonConverter<object>
     {
-        public override bool CanWrite => false;
+        // public override bool CanWrite => false;
 
         public override bool CanConvert(Type objectType)
         {
             return true;
         }
 
-        public override object ReadJson(Utf8JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        // public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
+            /*
             if (reader.TokenType == JsonToken.StartObject)
-                return /*JObject*/ JsonObject.Load(reader).ParseDeterministic<T>();
+                return JObject.Load(reader).ParseDeterministic<T>();
             else if (reader.TokenType == JsonToken.StartArray)
-                return Activator.CreateInstance(objectType, /*JArray*/ JsonArray.Load(reader).MultipleDeterministic<T>());
+                return Activator.CreateInstance(objectType, JArray.Load(reader).MultipleDeterministic<T>());
+            else
+                throw new JsonException("Invalid use of DeepJsonConverter");
+            */
+
+            if (reader.TokenType == JsonTokenType.StartObject)
+                return JsonObject.Create(JsonElement.ParseValue(ref reader)).ParseDeterministic<T>();
+            else if (reader.TokenType == JsonTokenType.StartArray)
+                return JsonArray.Create(JsonElement.ParseValue(ref reader)).MultipleDeterministic<T>();
             else
                 throw new JsonException("Invalid use of DeepJsonConverter");
         }
 
-        public override void WriteJson(Utf8JsonWriter writer, object value, JsonSerializer serializer)
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+        // public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void Write(Utf8JsonWriter writer, object value, JsonSerializerOptions options)
         {
             throw new NotImplementedException();
         }

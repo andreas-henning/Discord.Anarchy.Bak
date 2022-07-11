@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json;
 using System.Text.Json.Nodes;
 
 namespace Discord
@@ -18,7 +19,7 @@ namespace Discord
 
         public T Deserialize<T>()
         {
-            return Body.ToObject<T>();
+            return Body.Deserialize<T>();
         }
 
 

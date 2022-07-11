@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using Discord.Gateway;
-using System.Text.Json.Nodes;
 
 namespace Discord.Media
 {
@@ -74,7 +74,7 @@ namespace Discord.Media
         {
             if (message.Opcode == DiscordMediaOpcode.SSRCUpdate)
             {
-                SSRCUpdate ssrc = message.Data.ToObject<SSRCUpdate>();
+                SSRCUpdate ssrc = message.Data.Deserialize<SSRCUpdate>();
 
                 if (!Viewers.Contains(ssrc.UserId))
                 {
@@ -86,7 +86,7 @@ namespace Discord.Media
             }
             else if (message.Opcode == DiscordMediaOpcode.UserDisconnect)
             {
-                ulong userId = message.Data.ToObject</*JObject*/ JsonObject>().Value<ulong>("user_id");
+                ulong userId = message.Data["user_id"].GetValue<ulong>();
 
                 List<ulong> viewers = Viewers.ToList();
                 if (viewers.Remove(userId))

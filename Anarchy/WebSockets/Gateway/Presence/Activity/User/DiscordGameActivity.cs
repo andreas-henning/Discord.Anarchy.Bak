@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Text.Json.Serialization;
 using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 
 namespace Discord.Gateway
 {
@@ -18,7 +18,7 @@ namespace Discord.Gateway
             get
             {
                 if (_obj != null)
-                    return DateTimeOffset.FromUnixTimeMilliseconds(_obj.Value<long>("start"));
+                    return DateTimeOffset.FromUnixTimeMilliseconds(_obj["start"].GetValue<long>());
                 else
                     return null;
             }

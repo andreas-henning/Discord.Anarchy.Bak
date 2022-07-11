@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 
 namespace Discord
 {
@@ -17,20 +16,21 @@ namespace Discord
             Code = error.Code;
             ErrorMessage = error.Message;
 
-            if (error.Fields != null)
+            if (error.Fields.GetArrayLength() > 0)
                 InvalidFields = FindErrors(error.Fields);
         }
 
-        private static FieldErrorDictionary FindErrors(/*JObject*/ JsonObject obj)
+        private static FieldErrorDictionary FindErrors(/*JObject*/ JsonElement obj)
         {
             var dict = new FieldErrorDictionary();
-
-            foreach (JProperty child in obj.Children())
+            foreach (JsonProperty property in obj.EnumerateObject())
             {
-                if (child.Name == "_errors") dict.Errors = child.Value.ToObject<List<DiscordFieldError>>();
-                else dict[child.Name] = FindErrors((/*JObject*/ JsonObject)child.Value);
+                string key = property.Name;
+                if (key == "_errors")
+                    dict.Errors = property.Value.Deserialize<List<DiscordFieldError>>();
+                else
+                    dict[key] = FindErrors(property.Value);
             }
-
             return dict;
         }
     }

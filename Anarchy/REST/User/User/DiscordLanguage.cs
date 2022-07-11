@@ -5,9 +5,9 @@ using System.Text.Json.Serialization;
 
 namespace Discord
 {
-    public class LanguageConverter : JsonConverter
+    public class Language : JsonConverter<DiscordLanguage>
     {
-        private static readonly Dictionary<DiscordLanguage, string> Languages = new Dictionary<DiscordLanguage, string>()
+        private static readonly Dictionary<DiscordLanguage, string> Languages = new()
         {
             { DiscordLanguage.Danish, "da" },
             { DiscordLanguage.German, "de" },
@@ -41,12 +41,12 @@ namespace Discord
             { DiscordLanguage.Hindi, "hi" }
         };
 
-        private string ToString(DiscordLanguage lang)
+        private static string ToString(DiscordLanguage lang)
         {
             return Languages[lang];
         }
 
-        private DiscordLanguage FromString(string langStr)
+        private static DiscordLanguage FromString(string langStr)
         {
             foreach (var language in Languages)
             {
@@ -57,23 +57,23 @@ namespace Discord
             throw new InvalidOperationException("Invalid language string");
         }
 
-        public override void WriteJson(Utf8JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            writer.WriteValue(ToString((DiscordLanguage)value));
-        }
-
-        public override object ReadJson(Utf8JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            return FromString(reader.Value.ToString());
-        }
-
         public override bool CanConvert(Type objectType)
         {
             return true;
         }
+
+        public override DiscordLanguage Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            return FromString(reader.GetString());
+        }
+
+        public override void Write(Utf8JsonWriter writer, DiscordLanguage value, JsonSerializerOptions options)
+        {
+            writer.WriteRawValue(ToString((DiscordLanguage)value));
+        }
     }
 
-    [JsonConverter(typeof(LanguageConverter))]
+    [JsonConverter(typeof(Language))]
     public enum DiscordLanguage
     {
         Danish,

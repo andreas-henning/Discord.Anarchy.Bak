@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Text.Json.Nodes;
 
 namespace Discord
 {
@@ -30,7 +29,7 @@ namespace Discord
         public static async Task<GuildChannel> CreateGuildChannelAsync(this DiscordClient client, ulong guildId, string name, ChannelType type, ulong? parentId = null)
         {
             var channel = (await client.HttpClient.PostAsync($"/guilds/{guildId}/channels", new GuildChannelCreationProperties() { Name = name, Type = type, ParentId = parentId }))
-                                            .ParseDeterministic<GuildChannel>().SetClient(client);
+                .ParseDeterministic<GuildChannel>().SetClient(client);
 
             channel.GuildId = guildId;
 
@@ -86,12 +85,12 @@ namespace Discord
 
         public static async Task<ulong> FollowChannelAsync(this DiscordClient client, ulong channelToFollowId, ulong crosspostChannelId)
         {
-            return 
+            return
             (
                 await client.HttpClient.PostAsync(
                     $"/channels/{channelToFollowId}/followers",
                     $"{{\"webhook_channel_id\":{crosspostChannelId}}}")
-            ).Deserialize</*JObject*/ JsonObject>().Value<ulong>("webhook_id");
+            ).Body["webhook_id"].GetValue<ulong>();
         }
 
         public static ulong FollowChannel(this DiscordClient client, ulong channelToFollowId, ulong crosspostChannelId)
