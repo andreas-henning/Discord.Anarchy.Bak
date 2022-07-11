@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 
 namespace Discord
 {
@@ -56,13 +56,13 @@ namespace Discord
 
         public static async Task<DiscordMessage> SendFileAsync(this DiscordClient client, ulong channelId, string fileName, byte[] fileData, string message = null, bool tts = false)
         {
-            HttpClient httpClient = new HttpClient(new HttpClientHandler() { Proxy = client.Config.Proxy != null && client.Config.Proxy.Type == AnarchyProxyType.HTTP ? new WebProxy(client.Config.Proxy.Host + client.Config.Proxy.Port, false, new string[] { }, new NetworkCredential() { UserName = client.Config.Proxy.Username, Password = client.Config.Proxy.Password }) : null });
+            HttpClient httpClient = new HttpClient(new HttpClientHandler() { Proxy = client.Config.Proxy != null && client.Config.Proxy.Type == AnarchyProxyType.HTTP ? new WebProxy(client.Config.Proxy.Host + client.Config.Proxy.Port, false, Array.Empty<string>(), new NetworkCredential() { UserName = client.Config.Proxy.Username, Password = client.Config.Proxy.Password }) : null });
             httpClient.DefaultRequestHeaders.Add("Authorization", client.Token);
 
-            MultipartFormDataContent content = new MultipartFormDataContent
+            MultipartFormDataContent content = new()
             {
                 {
-                    new StringContent(JsonConvert.SerializeObject(new MessageProperties()
+                    new StringContent(JsonSerializer.Serialize(new MessageProperties()
                     {
                         Content = message,
                         Tts = tts
@@ -72,7 +72,7 @@ namespace Discord
                 { new ByteArrayContent(fileData), "file", fileName }
             };
 
-            return JsonConvert.DeserializeObject<DiscordMessage>(await httpClient.PostAsync(DiscordHttpUtil.BuildBaseUrl(client.Config.ApiVersion, client.Config.SuperProperties.ReleaseChannel) + $"/channels/{channelId}/messages", content)
+            return JsonSerializer.Deserialize<DiscordMessage>(await httpClient.PostAsync(DiscordHttpUtil.BuildBaseUrl(client.Config.ApiVersion, client.Config.SuperProperties.ReleaseChannel) + $"/channels/{channelId}/messages", content)
                                                                             .GetAwaiter().GetResult().Content.ReadAsStringAsync()).SetClient(client);
         }
 
@@ -145,7 +145,7 @@ namespace Discord
 
         public static async Task DeleteMessagesAsync(this DiscordClient client, ulong channelId, List<ulong> messages)
         {
-            await client.HttpClient.PostAsync($"/channels/{channelId}/messages/bulk-delete", $"{{\"messages\":{JsonConvert.SerializeObject(messages)}}}");
+            await client.HttpClient.PostAsync($"/channels/{channelId}/messages/bulk-delete", $"{{\"messages\":{JsonSerializer.Serialize(messages)}}}");
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Discord
             var resp = await client.HttpClient.PostAsync($"/channels/{channelId}/typing");
 
             if (resp.ToString().Contains("cooldown"))
-                throw new RateLimitException(resp.Deserialize<JObject>().GetValue("message_send_cooldown_ms").ToObject<int>());
+                throw new RateLimitException(resp.Deserialize</*JObject*/ JsonObject>().GetValue("message_send_cooldown_ms").ToObject<int>());
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace Discord
 
             const int messagesPerRequest = 100;
 
-            List<DiscordMessage> messages = new List<DiscordMessage>();
+            var messages = new List<DiscordMessage>();
 
             while (true)
             {

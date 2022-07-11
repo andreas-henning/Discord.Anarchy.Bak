@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Discord.Gateway
 {
     public class DiscordCall : Controllable
     {
-        [JsonProperty("channel_id")]
+        [JsonPropertyName("channel_id")]
         private readonly ulong _channelId;
 
         public MinimalTextChannel Channel
@@ -14,15 +14,15 @@ namespace Discord.Gateway
         }
 
 
-        [JsonProperty("message_id")]
+        [JsonPropertyName("message_id")]
         public ulong MessageId { get; private set; }
 
 
-        [JsonProperty("region")]
+        [JsonPropertyName("region")]
         public string Region { get; private set; }
 
 
-        [JsonProperty("ringing")]
+        [JsonPropertyName("ringing")]
         public IReadOnlyList<ulong> Ringing { get; private set; }
     }
 }

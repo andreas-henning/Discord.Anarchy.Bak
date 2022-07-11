@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Discord.Commands;
-using Newtonsoft.Json;
 
 namespace Discord
 {
@@ -9,19 +9,19 @@ namespace Discord
     {
         protected static DiscordBadge HypeBadges = DiscordBadge.HypeBravery | DiscordBadge.HypeBrilliance | DiscordBadge.HypeBalance;
 
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public ulong Id { get; private set; }
 
 
-        [JsonProperty("username")]
+        [JsonPropertyName("username")]
         public string Username { get; private set; }
 
 
-        [JsonProperty("discriminator")]
+        [JsonPropertyName("discriminator")]
         public uint Discriminator { get; private set; }
 
 
-        [JsonProperty("avatar")]
+        [JsonPropertyName("avatar")]
         protected string _avatarHash;
 
 
@@ -38,11 +38,11 @@ namespace Discord
 
 
         // understanding what public flags are is difficult because of the lack of documentation
-        [JsonProperty("public_flags")]
+        [JsonPropertyName("public_flags")]
         private DiscordBadge _publicFlags;
 
 
-        [JsonProperty("flags")]
+        [JsonPropertyName("flags")]
         private DiscordBadge _flags;
 
         public DiscordBadge Badges
@@ -61,7 +61,7 @@ namespace Discord
         }
 
 
-        [JsonProperty("bot")]
+        [JsonPropertyName("bot")]
         private readonly bool _bot;
 
 

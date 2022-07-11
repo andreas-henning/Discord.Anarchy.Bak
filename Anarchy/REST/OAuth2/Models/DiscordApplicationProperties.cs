@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Discord
 {
     public class DiscordApplicationProperties
     {
         private readonly DiscordParameter<string> _nameProperty = new DiscordParameter<string>();
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name
         {
             get { return _nameProperty; }
@@ -21,7 +21,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<string> _descriptionProperty = new DiscordParameter<string>();
-        [JsonProperty("description")]
+        [JsonPropertyName("description")]
         public string Description
         {
             get { return _descriptionProperty; }
@@ -36,7 +36,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<DiscordImage> IconProperty = new DiscordParameter<DiscordImage>();
-        [JsonProperty("icon")]
+        [JsonPropertyName("icon")]
         public DiscordImage Icon
         {
             get { return IconProperty; }
@@ -50,7 +50,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<bool> _publicProperty = new DiscordParameter<bool>();
-        [JsonProperty("bot_public")]
+        [JsonPropertyName("bot_public")]
         public bool PublicBot
         {
             get { return _publicProperty; }
@@ -65,7 +65,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<bool> _codeGrantProperty = new DiscordParameter<bool>();
-        [JsonProperty("bot_require_code_grant")]
+        [JsonPropertyName("bot_require_code_grant")]
         public bool BotRequireCodeGrant
         {
             get { return _codeGrantProperty; }
@@ -80,7 +80,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<List<string>> _redirectsProperty = new DiscordParameter<List<string>>();
-        [JsonProperty("redirect_urls")]
+        [JsonPropertyName("redirect_urls")]
         public List<string> RedirectUrls
         {
             get { return _redirectsProperty; }

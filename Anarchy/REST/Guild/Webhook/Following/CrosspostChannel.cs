@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Discord
 {
     public class CrosspostChannel : MinimalTextChannel
     {
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; private set; }
     }
 }

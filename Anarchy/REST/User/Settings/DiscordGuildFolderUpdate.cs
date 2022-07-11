@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Discord
 {
@@ -16,19 +16,19 @@ namespace Discord
         }
 
 
-        [JsonProperty("guild_ids")]
+        [JsonPropertyName("guild_ids")]
         public List<ulong> Guilds { get; set; }
 
 
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public long? Id { get; internal set; }
 
 
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
 
-        [JsonProperty("color")]
+        [JsonPropertyName("color")]
         private int? _color;
 
         public Color? Color

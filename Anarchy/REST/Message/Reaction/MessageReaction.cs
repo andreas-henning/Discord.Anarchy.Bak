@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Discord
 {
@@ -10,15 +10,15 @@ namespace Discord
         }
 
 
-        [JsonProperty("emoji")]
+        [JsonPropertyName("emoji")]
         public PartialEmoji Emoji { get; private set; }
 
 
-        [JsonProperty("count")]
+        [JsonPropertyName("count")]
         public uint Count { get; private set; }
 
 
-        [JsonProperty("me")]
+        [JsonPropertyName("me")]
         public bool ClientHasReacted { get; private set; }
 
 

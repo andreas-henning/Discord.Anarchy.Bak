@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Discord.Gateway
 {
@@ -10,7 +10,7 @@ namespace Discord.Gateway
         }
 
         private ulong _guildId;
-        [JsonProperty("guild_id")]
+        [JsonPropertyName("guild_id")]
         public ulong GuildId
         {
             get { return _guildId; }
@@ -18,7 +18,7 @@ namespace Discord.Gateway
         }
 
 
-        [JsonProperty("role")]
+        [JsonPropertyName("role")]
         public DiscordRole Role { get; private set; }
 
 

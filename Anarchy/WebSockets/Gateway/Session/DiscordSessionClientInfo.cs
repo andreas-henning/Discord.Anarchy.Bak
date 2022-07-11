@@ -1,18 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Discord.Gateway
 {
     public class DiscordSessionClientInfo
     {
-        [JsonProperty("version")]
+        [JsonPropertyName("version")]
         public int Version { get; private set; }
 
 
-        [JsonProperty("os")]
+        [JsonPropertyName("os")]
         public string OS { get; private set; }
 
 
-        [JsonProperty("client")]
+        [JsonPropertyName("client")]
         public string ClientType { get; private set; }
     }
 }

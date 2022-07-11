@@ -7,9 +7,8 @@ using Anarchy;
 using Discord.Commands;
 using Discord.Media;
 using Discord.WebSockets;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using WebSocketSharp;
+using System.Text.Json.Nodes;
 
 namespace Discord.Gateway
 {
@@ -327,7 +326,7 @@ namespace Discord.Gateway
                                 Task.Run(() => OnLoggedIn.Invoke(this, login));
                             break;
                         case "USER_SETTINGS_UPDATE":
-                            UserSettings.Update((JObject)message.Data);
+                            UserSettings.Update((/*JObject*/ JsonObject)message.Data);
 
                             if (OnSettingsUpdated != null)
                                 Task.Run(() => OnSettingsUpdated.Invoke(this, new DiscordSettingsEventArgs(UserSettings)));
@@ -476,7 +475,7 @@ namespace Discord.Gateway
                             if (OnGiftUpdated != null)
                             {
                                 var gift = message.Data.ToObject<GiftCodeUpdatedEventArgs>().SetClient(this);
-                                gift.Json = (JObject)message.Data;
+                                gift.Json = (/*JObject*/ JsonObject)message.Data;
 
                                 Task.Run(() => OnGiftUpdated.Invoke(this, gift));
                             }
@@ -598,7 +597,7 @@ namespace Discord.Gateway
                         case "CHANNEL_CREATE":
                             if (Config.Cache || OnChannelCreated != null)
                             {
-                                var channel = ((JObject)message.Data).ParseDeterministic<DiscordChannel>();
+                                var channel = ((/*JObject*/ JsonObject)message.Data).ParseDeterministic<DiscordChannel>();
 
                                 if (Config.Cache)
                                 {
@@ -619,7 +618,7 @@ namespace Discord.Gateway
                         case "CHANNEL_UPDATE":
                             if (Config.Cache || OnChannelUpdated != null)
                             {
-                                var channel = ((JObject)message.Data).ParseDeterministic<DiscordChannel>();
+                                var channel = ((/*JObject*/ JsonObject)message.Data).ParseDeterministic<DiscordChannel>();
 
                                 if (Config.Cache)
                                 {
@@ -639,7 +638,7 @@ namespace Discord.Gateway
                         case "CHANNEL_DELETE":
                             if (Config.Cache || OnChannelDeleted != null)
                             {
-                                var channel = ((JObject)message.Data).ParseDeterministic<DiscordChannel>();
+                                var channel = ((/*JObject*/ JsonObject)message.Data).ParseDeterministic<DiscordChannel>();
 
                                 if (Config.Cache)
                                 {
@@ -749,7 +748,7 @@ namespace Discord.Gateway
                             if (Config.Cache || OnRinging != null)
                             {
                                 var call = message.Data.ToObject<DiscordCall>().SetClient(this);
-                                var voiceStates = message.Data.Value<JToken>("voice_states").ToObject<IReadOnlyList<DiscordVoiceState>>().SetClientsInList(this);
+                                var voiceStates = message.Data.Value</*JToken*/JsonNode>("voice_states").ToObject<IReadOnlyList<DiscordVoiceState>>().SetClientsInList(this);
 
                                 if (Config.Cache)
                                 {
@@ -946,7 +945,7 @@ namespace Discord.Gateway
 
                     Task.Run(() =>
                     {
-                        int interval = message.Data.ToObject<JObject>().GetValue("heartbeat_interval").ToObject<int>() - 1000;
+                        int interval = message.Data.ToObject</*JObject*/ JsonObject>().GetValue("heartbeat_interval").ToObject<int>() - 1000;
 
                         try
                         {

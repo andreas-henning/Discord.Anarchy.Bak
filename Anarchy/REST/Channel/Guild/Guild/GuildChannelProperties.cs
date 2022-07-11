@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Discord
 {
@@ -8,7 +8,7 @@ namespace Discord
     public class GuildChannelProperties
     {
         private readonly DiscordParameter<string> NameProperty = new DiscordParameter<string>();
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name
         {
             get { return NameProperty; }
@@ -22,7 +22,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<ulong?> ParentProperty = new DiscordParameter<ulong?>();
-        [JsonProperty("parent_id")]
+        [JsonPropertyName("parent_id")]
         public ulong? ParentId
         {
             get { return ParentProperty; }
@@ -36,7 +36,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<uint> PositionProperty = new DiscordParameter<uint>();
-        [JsonProperty("position")]
+        [JsonPropertyName("position")]
         public uint Position
         {
             get { return PositionProperty; }

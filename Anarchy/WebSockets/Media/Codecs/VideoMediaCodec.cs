@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Discord.Media
 {
@@ -9,7 +9,7 @@ namespace Discord.Media
             Type = CodecType.Video;
         }
 
-        [JsonProperty("rtx_payload_type")]
+        [JsonPropertyName("rtx_payload_type")]
         public int RtxPayloadType { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Discord
 {
@@ -11,7 +11,7 @@ namespace Discord
         }
 
 
-        [JsonProperty("guild_id")]
+        [JsonPropertyName("guild_id")]
         internal ulong GuildId { get; set; }
 
 
@@ -24,7 +24,7 @@ namespace Discord
         }
 
 
-        [JsonProperty("user")]
+        [JsonPropertyName("user")]
         public DiscordUser User { get; internal set; }
 
 

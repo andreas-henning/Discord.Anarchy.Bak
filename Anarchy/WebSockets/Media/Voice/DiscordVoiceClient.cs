@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using Discord.Gateway;
 using Discord.WebSockets;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 
 namespace Discord.Media
 {
@@ -86,7 +86,7 @@ namespace Discord.Media
                     _ssrcToUserDictionary[update.Audio] = update.UserId;
                     break;
                 case DiscordMediaOpcode.UserDisconnect:
-                    ulong userId = message.Data.ToObject<JObject>().Value<ulong>("user_id");
+                    ulong userId = message.Data.ToObject</*JObject*/ JsonObject>().Value<ulong>("user_id");
 
                     if (_ssrcToUserDictionary.TryGetKey(userId, out uint ssrc))
                         _ssrcToUserDictionary.Remove(ssrc);

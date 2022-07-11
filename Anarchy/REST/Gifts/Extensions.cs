@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 
 namespace Discord
 {
@@ -16,7 +16,7 @@ namespace Discord
                 PaymentMethodId = paymentMethodId,
                 SkuPlanId = subPlanId,
                 ExpectedAmount = expectedAmount
-            })).Deserialize<JObject>().Value<string>("gift_code");
+            })).Deserialize</*JObject*/ JsonObject>().Value<string>("gift_code");
         }
 
         public static string PurchaseGift(this DiscordClient client, ulong paymentMethodId, ulong skuId, ulong subPlanId, int expectedAmount)

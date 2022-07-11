@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using PuppeteerSharp;
 
 namespace Discord
@@ -59,7 +59,7 @@ headers: " + "{";
             expression += @"},
 ";
             if (data != null)
-                expression += $"body: '{JsonConvert.SerializeObject(data)}',";
+                expression += $"body: '{JsonSerializer.Serialize(data)}',";
             expression += "}); return {status: req.status, body: await req.json()};}";
 
             var result = await _page.EvaluateFunctionAsync<DiscordResponse>(expression);

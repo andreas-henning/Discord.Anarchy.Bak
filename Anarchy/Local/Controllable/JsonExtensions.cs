@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 
 namespace Discord
 {
@@ -19,7 +19,7 @@ namespace Discord
                 return TryFindTypes(type.BaseType, out types);
         }
 
-        public static T ParseDeterministic<T>(this JObject obj)
+        public static T ParseDeterministic<T>(this /*JObject*/ JsonObject obj)
         {
             if (TryFindTypes(typeof(T), out Dictionary<int, Type> types))
             {
@@ -30,11 +30,11 @@ namespace Discord
                 throw new InvalidCastException("Unable to find any implementations for T");
         }
 
-        public static List<T> MultipleDeterministic<T>(this JArray arr)
+        public static List<T> MultipleDeterministic<T>(this /*JArray*/ JsonArray arr)
         {
             List<T> results = new List<T>();
 
-            foreach (JObject child in arr)
+            foreach (/*JObject*/ JsonObject child in arr)
                 results.Add(child.ParseDeterministic<T>());
 
             return results;

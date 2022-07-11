@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace Discord
 {
@@ -11,11 +11,11 @@ namespace Discord
         }
 
 
-        [JsonProperty("user")]
+        [JsonPropertyName("user")]
         public DiscordUser Creator { get; private set; }
 
 
-        [JsonProperty("available")]
+        [JsonPropertyName("available")]
         public bool Available { get; private set; }
 
 

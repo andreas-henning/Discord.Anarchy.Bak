@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Discord
 {
     public class InteractionResponseProperties
     {
         private readonly DiscordParameter<bool> _ttsParam = new DiscordParameter<bool>();
-        [JsonProperty("tts")]
+        [JsonPropertyName("tts")]
         public bool Tts
         {
             get { return _ttsParam; }
@@ -17,7 +17,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<string> _contentParam = new DiscordParameter<string>();
-        [JsonProperty("content")]
+        [JsonPropertyName("content")]
         public string Content
         {
             get { return _contentParam; }
@@ -28,7 +28,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<List<DiscordEmbed>> _embedParam = new DiscordParameter<List<DiscordEmbed>>();
-        [JsonProperty("embeds")]
+        [JsonPropertyName("embeds")]
         private List<DiscordEmbed> _embeds => _embedParam.Value;
 
         [JsonIgnore]
@@ -49,7 +49,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<List<MessageComponent>> _componentParam = new DiscordParameter<List<MessageComponent>>();
-        [JsonProperty("components")]
+        [JsonPropertyName("components")]
         public List<MessageComponent> Components
         {
             get { return _componentParam; }
@@ -59,7 +59,7 @@ namespace Discord
         public bool ShouldSerializeComponents() => _componentParam.Set;
 
 
-        [JsonProperty("flags")]
+        [JsonPropertyName("flags")]
         private int _flags
         {
             get

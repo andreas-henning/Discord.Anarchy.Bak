@@ -1,13 +1,13 @@
 ﻿using System.Drawing;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Discord.Commands;
-using Newtonsoft.Json;
 
 namespace Discord
 {
     public class DiscordRole : Controllable, IMentionable
     {
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public ulong Id { get; private set; }
 
 
@@ -19,11 +19,11 @@ namespace Discord
         }
 
 
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; private set; }
 
 
-        [JsonProperty("color")]
+        [JsonPropertyName("color")]
         private uint _color;
         public Color Color
         {
@@ -32,19 +32,19 @@ namespace Discord
         }
 
 
-        [JsonProperty("position")]
+        [JsonPropertyName("position")]
         public int Position { get; private set; }
 
 
-        [JsonProperty("hoist")]
+        [JsonPropertyName("hoist")]
         public bool Seperated { get; private set; }
 
 
-        [JsonProperty("mentionable")]
+        [JsonPropertyName("mentionable")]
         public bool Mentionable { get; private set; }
 
 
-        [JsonProperty("permissions")]
+        [JsonPropertyName("permissions")]
         public DiscordPermission Permissions { get; private set; }
 
 

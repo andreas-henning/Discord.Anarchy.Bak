@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Discord
 {
     public class EmbedFooter
     {
-        [JsonProperty("text")]
+        [JsonPropertyName("text")]
         private string _text;
 
         public string Text
@@ -20,11 +20,11 @@ namespace Discord
         }
 
 
-        [JsonProperty("icon_url")]
+        [JsonPropertyName("icon_url")]
         public string IconUrl { get; set; }
 
 
-        [JsonProperty("proxy_icon_url")]
+        [JsonPropertyName("proxy_icon_url")]
         public string IconProxyUrl { get; private set; }
 
 

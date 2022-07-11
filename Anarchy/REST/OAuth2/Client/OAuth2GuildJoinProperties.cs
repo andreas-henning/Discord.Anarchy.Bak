@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Discord
 {
     public class OAuth2GuildJoinProperties
     {
-        [JsonProperty("access_token")]
+        [JsonPropertyName("access_token")]
         internal string AccessToken { get; set; }
 
         private DiscordParameter<string> _nickParam = new DiscordParameter<string>();
-        [JsonProperty("nick")]
+        [JsonPropertyName("nick")]
         public string Nickname
         {
             get { return _nickParam; }
@@ -20,7 +20,7 @@ namespace Discord
 
 
         private DiscordParameter<List<ulong>> _roleParam = new DiscordParameter<List<ulong>>();
-        [JsonProperty("roles")]
+        [JsonPropertyName("roles")]
         public List<ulong> Roles
         {
             get { return _roleParam; }
@@ -31,7 +31,7 @@ namespace Discord
 
 
         private DiscordParameter<bool> _muteParam = new DiscordParameter<bool>();
-        [JsonProperty("mute")]
+        [JsonPropertyName("mute")]
         public bool Mute
         {
             get { return _muteParam; }
@@ -42,7 +42,7 @@ namespace Discord
 
 
         private DiscordParameter<bool> _deafParam = new DiscordParameter<bool>();
-        [JsonProperty("deaf")]
+        [JsonPropertyName("deaf")]
         public bool Deaf
         {
             get { return _deafParam; }

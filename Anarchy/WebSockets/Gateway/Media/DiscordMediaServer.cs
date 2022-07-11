@@ -1,14 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Discord.Gateway
 {
     public class DiscordMediaServer : Controllable
     {
-        [JsonProperty("token")]
+        [JsonPropertyName("token")]
         public string Token { get; private set; }
 
 
-        [JsonProperty("guild_id")]
+        [JsonPropertyName("guild_id")]
         internal ulong? GuildId { get; set; }
 
 
@@ -25,7 +25,7 @@ namespace Discord.Gateway
 
 
         private string _endpoint;
-        [JsonProperty("endpoint")]
+        [JsonPropertyName("endpoint")]
         public string Endpoint
         {
             get { return _endpoint; }
@@ -37,7 +37,7 @@ namespace Discord.Gateway
         }
 
 
-        [JsonProperty("stream_key")]
+        [JsonPropertyName("stream_key")]
         internal string StreamKey { get; private set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Discord
 {
@@ -23,12 +24,12 @@ namespace Discord
                 return (UserStatus)Enum.Parse(typeof(UserStatus), status, true);
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(Utf8JsonWriter writer, object value, JsonSerializer serializer)
         {
             writer.WriteValue(ToString((UserStatus)value));
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(Utf8JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             return FromString(reader.Value.ToString());
         }

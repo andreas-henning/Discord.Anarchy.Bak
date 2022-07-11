@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Discord
 {
@@ -10,15 +10,15 @@ namespace Discord
         }
 
 
-        [JsonProperty("emoji")]
+        [JsonPropertyName("emoji")]
         public PartialEmoji Emoji { get; private set; }
 
 
-        [JsonProperty("message_id")]
+        [JsonPropertyName("message_id")]
         public ulong MessageId { get; private set; }
 
 
-        [JsonProperty("channel_id")]
+        [JsonPropertyName("channel_id")]
         private readonly ulong _channelId;
 
         public MinimalTextChannel Channel
@@ -30,7 +30,7 @@ namespace Discord
         }
 
 
-        [JsonProperty("guild_id")]
+        [JsonPropertyName("guild_id")]
         private readonly ulong _guildId;
 
         public MinimalGuild Guild
@@ -42,7 +42,7 @@ namespace Discord
         }
 
 
-        [JsonProperty("user_id")]
+        [JsonPropertyName("user_id")]
         public ulong UserId { get; private set; }
 
 

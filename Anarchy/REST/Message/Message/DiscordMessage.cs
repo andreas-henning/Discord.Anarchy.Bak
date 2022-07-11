@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Discord
 {
@@ -32,23 +32,23 @@ namespace Discord
         }
 
 
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public ulong Id { get; private set; }
 
 
-        [JsonProperty("content")]
+        [JsonPropertyName("content")]
         public string Content { get; private set; }
 
 
-        [JsonProperty("tts")]
+        [JsonPropertyName("tts")]
         public bool Tts { get; private set; }
 
 
-        [JsonProperty("author")]
+        [JsonPropertyName("author")]
         private DiscordUser _authorUser;
 
 
-        [JsonProperty("member")]
+        [JsonPropertyName("member")]
         private GuildMember _authorMember;
 
 
@@ -64,7 +64,7 @@ namespace Discord
         }
 
 
-        [JsonProperty("attachments")]
+        [JsonPropertyName("attachments")]
         private readonly IReadOnlyList<DiscordAttachment> _attachments;
         public DiscordAttachment Attachment
         {
@@ -72,7 +72,7 @@ namespace Discord
         }
 
 
-        [JsonProperty("embeds")]
+        [JsonPropertyName("embeds")]
         private IReadOnlyList<DiscordEmbed> _embeds;
         public DiscordEmbed Embed
         {
@@ -81,41 +81,41 @@ namespace Discord
         }
 
 
-        [JsonProperty("reactions")]
+        [JsonPropertyName("reactions")]
         public IReadOnlyList<MessageReaction> Reactions { get; private set; }
 
 
-        [JsonProperty("mentions")]
+        [JsonPropertyName("mentions")]
         public IReadOnlyList<DiscordUser> Mentions { get; private set; }
 
 
-        [JsonProperty("mention_roles")]
+        [JsonPropertyName("mention_roles")]
         public IReadOnlyList<ulong> MentionedRoles { get; private set; }
 
 
-        [JsonProperty("mention_everyone")]
+        [JsonPropertyName("mention_everyone")]
         public bool MentionedEveryone { get; private set; }
 
 
-        [JsonProperty("timestamp")]
+        [JsonPropertyName("timestamp")]
         public DateTime SentAt { get; private set; }
 
 
-        [JsonProperty("edited_timestamp")]
+        [JsonPropertyName("edited_timestamp")]
         public DateTime? EditedAt { get; private set; }
 
 
-        [JsonProperty("pinned")]
+        [JsonPropertyName("pinned")]
         public bool Pinned { get; private set; }
 
 
-        [JsonProperty("channel_id")]
+        [JsonPropertyName("channel_id")]
         private readonly ulong _channelId;
 
         public MinimalTextChannel Channel => new MinimalTextChannel(_channelId).SetClient(Client);
 
 
-        [JsonProperty("guild_id")]
+        [JsonPropertyName("guild_id")]
         internal ulong? GuildId { get; set; }
 
 
@@ -134,27 +134,27 @@ namespace Discord
         }
 
 
-        [JsonProperty("type")]
+        [JsonPropertyName("type")]
         public MessageType Type { get; private set; }
 
 
-        [JsonProperty("flags")]
+        [JsonPropertyName("flags")]
         public MessageFlags Flags { get; private set; }
 
 
-        [JsonProperty("referenced_message")]
+        [JsonPropertyName("referenced_message")]
         public DiscordMessage ReferencedMessage { get; private set; }
 
-        [JsonProperty("message_reference")]
+        [JsonPropertyName("message_reference")]
         public MessageReference MessageReference { get; private set; }
 
 
-        [JsonProperty("components")]
+        [JsonPropertyName("components")]
         [JsonConverter(typeof(DeepJsonConverter<MessageComponent>))]
         public List<MessageComponent> Components { get; private set; }
 
 
-        [JsonProperty("sticker_items")]
+        [JsonPropertyName("sticker_items")]
         public IReadOnlyList<DiscordSticker> Stickers { get; private set; }
 
 

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Discord
 {
@@ -7,15 +7,15 @@ namespace Discord
     /// </summary>
     internal class GuildCreationProperties
     {
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
 
-        [JsonProperty("region")]
+        [JsonPropertyName("region")]
         public string Region { get; set; }
 
 
-        [JsonProperty("icon")]
+        [JsonPropertyName("icon")]
         public DiscordImage Icon { get; set; }
     }
 }

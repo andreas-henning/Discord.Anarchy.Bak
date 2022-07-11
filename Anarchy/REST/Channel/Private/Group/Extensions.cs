@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 
 namespace Discord
 {
@@ -25,9 +26,9 @@ namespace Discord
 
         public static async Task<DiscordGroup> CreateGroupAsync(this DiscordClient client, List<ulong> recipients)
         {
-            return (await client.HttpClient.PostAsync($"/users/@me/channels", new JObject()
+            return (await client.HttpClient.PostAsync($"/users/@me/channels", new /*JObject*/ JsonObject()
             {
-                ["recipients"] = JArray.FromObject(recipients)
+                ["recipients"] = /*JArray*/ JsonArray.Create(recipients)
             })).Deserialize<DiscordGroup>().SetClient(client);
         }
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 
 namespace Discord
 {
@@ -12,7 +12,7 @@ namespace Discord
                 filters = new AuditLogFilters();
 
             return (await client.HttpClient.GetAsync($"/guilds/{guildId}/audit-logs?{(filters.UserIdProperty.Set ? $"user_id={filters.UserId}" : "")}&{(filters.ActionTypeProperty.Set ? $"action_type={(int)filters.ActionType}" : "")}&{(filters.BeforeIdProperty.Set ? $"before={filters.BeforeId}" : "")}&{(filters.LimitProperty.Set ? $"limit={filters.Limit}" : "")}"))
-                                .Body.Value<JToken>("audit_log_entries").ToObject<List<AuditLogEntry>>();
+                                .Body.Value</*JToken*/JsonNode>("audit_log_entries").ToObject<List<AuditLogEntry>>();
         }
 
         /// <summary>

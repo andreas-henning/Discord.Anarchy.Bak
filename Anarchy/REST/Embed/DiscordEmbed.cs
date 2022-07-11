@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Discord
 {
@@ -17,19 +17,19 @@ namespace Discord
         }
 
 
-        [JsonProperty("title")]
+        [JsonPropertyName("title")]
         public string Title { get; internal set; }
 
 
-        [JsonProperty("url")]
+        [JsonPropertyName("url")]
         public string TitleUrl { get; set; }
 
 
-        [JsonProperty("description")]
+        [JsonPropertyName("description")]
         public string Description { get; internal set; }
 
 
-        [JsonProperty("color")]
+        [JsonPropertyName("color")]
         private uint _color;
         public Color Color
         {
@@ -38,31 +38,31 @@ namespace Discord
         }
 
 
-        [JsonProperty("fields")]
+        [JsonPropertyName("fields")]
         public IReadOnlyList<EmbedField> Fields { get; internal set; }
 
 
-        [JsonProperty("video")]
+        [JsonPropertyName("video")]
         public EmbedVideo Video { get; private set; }
 
 
-        [JsonProperty("thumbnail")]
+        [JsonPropertyName("thumbnail")]
         public EmbedImage Thumbnail { get; private set; }
 
 
-        [JsonProperty("image")]
+        [JsonPropertyName("image")]
         public EmbedImage Image { get; private set; }
 
 
-        [JsonProperty("footer")]
+        [JsonPropertyName("footer")]
         public EmbedFooter Footer { get; internal set; }
 
 
-        [JsonProperty("author")]
+        [JsonPropertyName("author")]
         public EmbedAuthor Author { get; internal set; }
 
 
-        [JsonProperty("timestamp")]
+        [JsonPropertyName("timestamp")]
         public DateTime? Timestamp { get; internal set; }
 
 

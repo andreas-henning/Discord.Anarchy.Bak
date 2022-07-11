@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 
 namespace Discord
 {
@@ -57,7 +57,7 @@ namespace Discord
                 => client.GetThreadMembersAsync(threadId).GetAwaiter().GetResult();
 
         public static async Task<IReadOnlyList<DiscordThread>> GetChannelActiveThreadsAsync(this DiscordClient client, ulong channelId)
-                => (await client.HttpClient.GetAsync($"/channels/{channelId}/threads/active")).Body.Value<JToken>("threads").ToObject<List<DiscordThread>>();
+                => (await client.HttpClient.GetAsync($"/channels/{channelId}/threads/active")).Body.Value</*JToken*/JsonNode>("threads").ToObject<List<DiscordThread>>();
 
         public static IReadOnlyList<DiscordThread> GetChannelActiveThreads(this DiscordClient client, ulong channelId)
                 => client.GetChannelActiveThreadsAsync(channelId).GetAwaiter().GetResult();

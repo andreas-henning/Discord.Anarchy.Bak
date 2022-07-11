@@ -1,18 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Discord
 {
     public class AuditLogChange
     {
-        [JsonProperty("new_value")]
+        [JsonPropertyName("new_value")]
         public dynamic NewValue { get; private set; }
 
 
-        [JsonProperty("old_value")]
+        [JsonPropertyName("old_value")]
         public dynamic OldValue { get; private set; }
 
 
-        [JsonProperty("key")]
+        [JsonPropertyName("key")]
         public string Key { get; private set; }
 
 

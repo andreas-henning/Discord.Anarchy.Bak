@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Anarchy;
-using Newtonsoft.Json;
 
 namespace Discord
 {
@@ -15,7 +15,7 @@ namespace Discord
             OnClientUpdated += (sender, e) => Recipients.SetClientsInList(Client);
         }
 
-        [JsonProperty("recipients")]
+        [JsonPropertyName("recipients")]
         internal ConcurrentList<DiscordUser> _recipients;
 
 
@@ -25,7 +25,7 @@ namespace Discord
         }
 
 
-        [JsonProperty("last_message_id")]
+        [JsonPropertyName("last_message_id")]
         public ulong? LastMessageId { get; internal set; }
 
 

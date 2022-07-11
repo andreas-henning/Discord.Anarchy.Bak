@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Discord
 {
@@ -8,11 +8,11 @@ namespace Discord
     /// </summary>
     internal class WebhookMessageProperties
     {
-        [JsonProperty("content")]
+        [JsonPropertyName("content")]
         public string Content { get; set; }
 
 
-        [JsonProperty("embeds")]
+        [JsonPropertyName("embeds")]
         private List<DiscordEmbed> _embeds;
         public DiscordEmbed Embed
         {
@@ -31,7 +31,7 @@ namespace Discord
 
 
         internal DiscordParameter<string> NameProperty = new DiscordParameter<string>();
-        [JsonProperty("username")]
+        [JsonPropertyName("username")]
         public string Username
         {
             get { return NameProperty; }
@@ -46,7 +46,7 @@ namespace Discord
 
 
         internal DiscordParameter<string> AvatarProperty = new DiscordParameter<string>();
-        [JsonProperty("avatar_url")]
+        [JsonPropertyName("avatar_url")]
         public string AvatarUrl
         {
             get { return AvatarProperty; }

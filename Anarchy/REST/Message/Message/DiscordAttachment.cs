@@ -1,26 +1,26 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Discord
 {
     public class DiscordAttachment
     {
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public ulong Id { get; private set; }
 
 
-        [JsonProperty("filename")]
+        [JsonPropertyName("filename")]
         public string FileName { get; private set; }
 
 
-        [JsonProperty("url")]
+        [JsonPropertyName("url")]
         public string Url { get; private set; }
 
 
-        [JsonProperty("proxy_url")]
+        [JsonPropertyName("proxy_url")]
         public string ProxyUrl { get; private set; }
 
 
-        [JsonProperty("size")]
+        [JsonPropertyName("size")]
         public uint FileSize { get; private set; }
 
 

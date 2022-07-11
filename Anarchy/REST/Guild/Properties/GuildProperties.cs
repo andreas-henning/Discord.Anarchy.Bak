@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Discord
 {
@@ -9,7 +9,7 @@ namespace Discord
     public class GuildProperties
     {
         private readonly DiscordParameter<string> NameProperty = new DiscordParameter<string>();
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name
         {
             get { return NameProperty; }
@@ -24,7 +24,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<string> RegionProperty = new DiscordParameter<string>();
-        [JsonProperty("region")]
+        [JsonPropertyName("region")]
         public string Region
         {
             get { return RegionProperty; }
@@ -39,7 +39,7 @@ namespace Discord
 
 
         internal readonly DiscordParameter<DiscordImage> IconProperty = new DiscordParameter<DiscordImage>();
-        [JsonProperty("icon")]
+        [JsonPropertyName("icon")]
         public DiscordImage Icon
         {
             get { return IconProperty; }
@@ -54,7 +54,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<ulong> OwnerProperty = new DiscordParameter<ulong>();
-        [JsonProperty("owner_id")]
+        [JsonPropertyName("owner_id")]
         public ulong OwnerId
         {
             get { return OwnerProperty; }
@@ -69,7 +69,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<GuildVerificationLevel> VerificationProperty = new DiscordParameter<GuildVerificationLevel>();
-        [JsonProperty("verification_level")]
+        [JsonPropertyName("verification_level")]
         public GuildVerificationLevel VerificationLevel
         {
             get { return VerificationProperty; }
@@ -84,7 +84,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<GuildDefaultNotifications> NotificationsProperty = new DiscordParameter<GuildDefaultNotifications>();
-        [JsonProperty("default_message_notifications")]
+        [JsonPropertyName("default_message_notifications")]
         public GuildDefaultNotifications DefaultNotifications
         {
             get { return NotificationsProperty; }
@@ -99,7 +99,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<List<string>> FeatureProperty = new DiscordParameter<List<string>>();
-        [JsonProperty("features")]
+        [JsonPropertyName("features")]
         public List<string> Features
         {
             get { return FeatureProperty; }
@@ -113,7 +113,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<ulong?> _updatesChannel = new DiscordParameter<ulong?>();
-        [JsonProperty("public_updates_channel_id")]
+        [JsonPropertyName("public_updates_channel_id")]
         public ulong? PublicUpdatesChannelId
         {
             get { return _updatesChannel; }
@@ -127,7 +127,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<ulong?> _rulesChannel = new DiscordParameter<ulong?>();
-        [JsonProperty("rules_channel_id")]
+        [JsonPropertyName("rules_channel_id")]
         public ulong? RulesChannelId
         {
             get { return _rulesChannel; }
@@ -141,7 +141,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<DiscordLanguage?> _preferredLocale = new DiscordParameter<DiscordLanguage?>();
-        [JsonProperty("preferred_locale")]
+        [JsonPropertyName("preferred_locale")]
         public DiscordLanguage? PreferredLanguage
         {
             get { return _preferredLocale; }
@@ -163,7 +163,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<ExplicitContentFilter> _contentFilterParam = new DiscordParameter<ExplicitContentFilter>();
-        [JsonProperty("explicit_content_filter")]
+        [JsonPropertyName("explicit_content_filter")]
         public ExplicitContentFilter ExplicitContentFilter
         {
             get { return _contentFilterParam; }
@@ -174,7 +174,7 @@ namespace Discord
 
 
         private readonly DiscordParameter<string> _descParam = new DiscordParameter<string>();
-        [JsonProperty("description")]
+        [JsonPropertyName("description")]
         public string Description
         {
             get { return _descParam; }

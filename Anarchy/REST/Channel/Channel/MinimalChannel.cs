@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace Discord
 {
     public class MinimalChannel : Controllable
     {
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public ulong Id { get; private set; }
 
         public MinimalChannel()

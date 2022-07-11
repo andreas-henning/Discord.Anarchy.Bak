@@ -2,10 +2,10 @@
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Leaf.xNet;
-using Newtonsoft.Json;
 
 namespace Discord
 {
@@ -38,7 +38,7 @@ namespace Discord
                 if (payload.GetType() == typeof(string))
                     json = (string)payload;
                 else
-                    json = JsonConvert.SerializeObject(payload);
+                    json = JsonSerializer.Serialize(payload);
             }
 
             uint retriesLeft = _discordClient.Config.RestConnectionRetries;

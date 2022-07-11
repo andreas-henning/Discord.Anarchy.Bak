@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Discord
 {
@@ -7,15 +7,15 @@ namespace Discord
     /// </summary>
     public class InviteProperties
     {
-        [JsonProperty("max_age")]
+        [JsonPropertyName("max_age")]
         public uint MaxAge { get; set; }
 
 
-        [JsonProperty("max_uses")]
+        [JsonPropertyName("max_uses")]
         public uint MaxUses { get; set; }
 
 
-        [JsonProperty("temporary")]
+        [JsonPropertyName("temporary")]
         public bool Temporary { get; set; }
     }
 }

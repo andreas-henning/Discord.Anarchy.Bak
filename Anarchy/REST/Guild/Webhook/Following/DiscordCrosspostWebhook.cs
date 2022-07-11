@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace Discord
 {
@@ -14,11 +14,11 @@ namespace Discord
             };
         }
 
-        [JsonProperty("source_guild")]
+        [JsonPropertyName("source_guild")]
         public BaseGuild SourceGuild { get; private set; }
 
 
-        [JsonProperty("source_channel")]
+        [JsonPropertyName("source_channel")]
         public CrosspostChannel SourceChannel { get; private set; }
 
 

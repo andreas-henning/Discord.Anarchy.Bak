@@ -1,17 +1,17 @@
 ﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Serialization;
+using System.Text.Json.Nodes;
 
 namespace Discord.Gateway
 {
     public class DiscordGameActivity : DiscordActivity
     {
-        [JsonProperty("application_id")]
+        [JsonPropertyName("application_id")]
         public string ApplicationId { get; private set; }
 
 
-        [JsonProperty("timestamps")]
-        private readonly JObject _obj;
+        [JsonPropertyName("timestamps")]
+        private readonly /*JObject*/ JsonObject _obj;
 
         public DateTimeOffset? Since
         {

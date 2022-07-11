@@ -1,14 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Discord
 {
     public class BaseGuild : MinimalGuild
     {
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; private set; }
 
 
-        [JsonProperty("icon")]
+        [JsonPropertyName("icon")]
         private string _iconHash;
 
 

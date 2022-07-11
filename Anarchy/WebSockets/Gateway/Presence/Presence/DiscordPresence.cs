@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 
 namespace Discord.Gateway
 {
@@ -16,8 +16,8 @@ namespace Discord.Gateway
         }
 
 
-        [JsonProperty("user")]
-        private readonly JObject _user;
+        [JsonPropertyName("user")]
+        private readonly /*JObject*/ JsonObject _user;
 
         public ulong UserId
         {
@@ -26,7 +26,7 @@ namespace Discord.Gateway
 
 
         private readonly DiscordParameter<List<DiscordActivity>> _activitiesParam = new DiscordParameter<List<DiscordActivity>>();
-        [JsonProperty("activities")]
+        [JsonPropertyName("activities")]
         [JsonConverter(typeof(DeepJsonConverter<DiscordActivity>))]
         private List<DiscordActivity> _activities
         {
@@ -46,7 +46,7 @@ namespace Discord.Gateway
 
 
         private readonly DiscordParameter<UserStatus> _statusParam = new DiscordParameter<UserStatus>();
-        [JsonProperty("status")]
+        [JsonPropertyName("status")]
         public UserStatus Status
         {
             get { return _statusParam; }
@@ -60,7 +60,7 @@ namespace Discord.Gateway
 
 
         private readonly DiscordParameter<ActiveSessionPlatforms> _platformsParam = new DiscordParameter<ActiveSessionPlatforms>();
-        [JsonProperty("client_status")]
+        [JsonPropertyName("client_status")]
         public ActiveSessionPlatforms ActivePlatforms
         {
             get { return _platformsParam; }

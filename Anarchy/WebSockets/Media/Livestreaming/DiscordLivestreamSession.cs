@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Discord.Gateway;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 
 namespace Discord.Media
 {
@@ -86,7 +86,7 @@ namespace Discord.Media
             }
             else if (message.Opcode == DiscordMediaOpcode.UserDisconnect)
             {
-                ulong userId = message.Data.ToObject<JObject>().Value<ulong>("user_id");
+                ulong userId = message.Data.ToObject</*JObject*/ JsonObject>().Value<ulong>("user_id");
 
                 List<ulong> viewers = Viewers.ToList();
                 if (viewers.Remove(userId))

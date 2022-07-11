@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 
 namespace Discord
 {
@@ -7,7 +7,7 @@ namespace Discord
         public static string BuildBaseUrl(uint apiVersion, DiscordReleaseChannel releaseChannel) =>
             $"https://{(releaseChannel == DiscordReleaseChannel.Stable ? "" : releaseChannel.ToString().ToLower() + ".")}discord.com/api/v{apiVersion}";
 
-        public static void ValidateResponse(int statusCode, JToken body)
+        public static void ValidateResponse(int statusCode, /*JToken*/JsonNode body)
         {
             if (statusCode >= 400)
             {
