@@ -7,9 +7,13 @@ namespace MessageLogger
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main(string[] _)
         {
-            DiscordSocketClient client = new DiscordSocketClient();
+            // To watch the requests/responses shared between client and discord server,
+            //  install fiddler and setup the default proxy as shown below:
+            // HttpClient.DefaultProxy = new WebProxy("127.0.0.1", 8888);
+
+            var client = new DiscordSocketClient();
             client.OnLoggedIn += OnLoggedIn;
             client.OnMessageReceived += OnMessageReceived;
 

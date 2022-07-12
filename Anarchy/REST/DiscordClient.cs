@@ -56,20 +56,12 @@ namespace Discord
                 config = new ApiConfig();
 
             Config = new LockedDiscordConfig(config);
-            FinishConfig();
         }
 
         public DiscordClient(string token, ApiConfig config = null) : this(config)
         {
             Token = token;
         }
-
-        protected void FinishConfig()
-        {
-            if (Config.Proxy != null)
-                Proxy = Config.Proxy.CreateProxyClient();
-        }
-
 
         public override string ToString()
         {

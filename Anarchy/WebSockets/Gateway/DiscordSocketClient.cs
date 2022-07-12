@@ -142,8 +142,6 @@ namespace Discord.Gateway
             Config = new LockedSocketConfig(config);
             base.Config = Config;
 
-            FinishConfig();
-
             if (Config.Cache)
             {
                 GuildCache = new ConcurrentDictionary<ulong, SocketGuild>();
