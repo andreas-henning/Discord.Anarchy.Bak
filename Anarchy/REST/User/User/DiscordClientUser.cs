@@ -8,6 +8,21 @@ namespace Discord
     /// </summary>
     public class DiscordClientUser : DiscordUser
     {
+        [JsonConstructor]
+        public DiscordClientUser(ulong id, string username, uint discriminator, string _avatarHash, DiscordBadge _publicFlags, DiscordBadge _flags, bool _bot, string token, string email, bool emailVerified, bool twoFactorAuth, bool? nsfwAllowed, string phoneNumber, ExplicitContentFilter explicitContentFilter, DiscordLanguage registrationLanguage, DiscordNitroType? _nitro)
+            : base(id, username, discriminator, _avatarHash, _publicFlags, _flags, _bot)
+        {
+            Token = token;
+            Email = email;
+            EmailVerified = emailVerified;
+            TwoFactorAuth = twoFactorAuth;
+            NsfwAllowed = nsfwAllowed;
+            PhoneNumber = phoneNumber;
+            ExplicitContentFilter = explicitContentFilter;
+            RegistrationLanguage = registrationLanguage;
+            this._nitro = _nitro;
+        }
+
         [JsonPropertyName("token")]
         internal string Token { get; private set; }
 

@@ -9,6 +9,18 @@ namespace Discord
     {
         protected static DiscordBadge HypeBadges = DiscordBadge.HypeBravery | DiscordBadge.HypeBrilliance | DiscordBadge.HypeBalance;
 
+        [JsonConstructor]
+        public DiscordUser(ulong id, string username, uint discriminator, string _avatarHash, DiscordBadge _publicFlags, DiscordBadge _flags, bool _bot)
+        {
+            Id = id;
+            Username = username;
+            Discriminator = discriminator;
+            this._avatarHash = _avatarHash;
+            this._publicFlags = _publicFlags;
+            this._flags = _flags;
+            this._bot = _bot;
+        }
+
         [JsonPropertyName("id")]
         public ulong Id { get; private set; }
 

@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Leaf.xNet;
@@ -38,7 +39,10 @@ namespace Discord
                 if (payload.GetType() == typeof(string))
                     json = (string)payload;
                 else
-                    json = JsonSerializer.Serialize(payload);
+                    json = JsonSerializer.Serialize(
+                        payload,
+                        new JsonSerializerOptions() { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }
+                    );
             }
 
             uint retriesLeft = _discordClient.Config.RestConnectionRetries;

@@ -66,11 +66,11 @@ headers: " + "{";
 
             if (result.Status >= 400)
             {
-                if (result.Status == 429) throw new RateLimitException(result.Body.Value<int>("retry_after"));
-                else throw new DiscordHttpException(result.Body.ToObject<DiscordHttpError>());
+                if (result.Status == 429) throw new RateLimitException(result.Body["retry_after"].GetValue<int>());
+                else throw new DiscordHttpException(result.Body.Deserialize<DiscordHttpError>());
             }
 
-            return result.Body.ToObject<T>();
+            return result.Body.Deserialize<T>();
         }
 
 
