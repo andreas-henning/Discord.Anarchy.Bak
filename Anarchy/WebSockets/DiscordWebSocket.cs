@@ -28,12 +28,6 @@ namespace Discord.WebSockets
             _socket.OnClose += OnClose;
         }
 
-        public void SetProxy(ProxyClient client)
-        {
-            if (client != null && client.Type == ProxyType.HTTP)
-                _socket.SetProxy($"http://{client.Host}:{client.Port}", client.Username, client.Password);
-        }
-
         public void Connect()
         {
             lock (_socketLock)
