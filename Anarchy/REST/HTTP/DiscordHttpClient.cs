@@ -51,9 +51,10 @@ namespace Discord
                 {
                     DiscordHttpResponse resp;
 
-                    if (_discordClient.Proxy == null || _discordClient.Proxy.Type == ProxyType.HTTP)
+                    var isSystemDefaultProxy = HttpClient.DefaultProxy == WebRequest.GetSystemWebProxy();
+                    if (isSystemDefaultProxy)
                     {
-                        HttpClient client = new(new HttpClientHandler() { Proxy = _discordClient.Proxy == null ? null : new WebProxy(_discordClient.Proxy.Host, _discordClient.Proxy.Port) });
+                        var client = new HttpClient();
                         if (_discordClient.Token != null)
                             client.DefaultRequestHeaders.Add("Authorization", _discordClient.Token);
 
@@ -83,7 +84,7 @@ namespace Discord
                     }
                     else
                     {
-                        HttpRequest msg = new()
+                        var msg = new HttpRequest
                         {
                             IgnoreProtocolErrors = true,
                             UserAgent = _discordClient.User != null && _discordClient.User.Type == DiscordUserType.Bot ? "Anarchy/0.8.1.2" : _discordClient.Config.SuperProperties.UserAgent,
@@ -94,7 +95,6 @@ namespace Discord
                             msg.AddHeader(HttpHeader.ContentType, "application/json");
 
                         if (_discordClient.User == null || _discordClient.User.Type == DiscordUserType.User) msg.AddHeader("X-Super-Properties", _discordClient.Config.SuperProperties.ToBase64());
-                        if (_discordClient.Proxy != null) msg.Proxy = _discordClient.Proxy;
 
                         var response = msg.Raw(method, endpoint, hasData ? new Leaf.xNet.StringContent(json) : null);
 

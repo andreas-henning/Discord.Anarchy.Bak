@@ -1,6 +1,4 @@
-﻿using Leaf.xNet;
-
-namespace Discord
+﻿namespace Discord
 {
     /// <summary>
     /// Discord client that only supports HTTP
@@ -41,7 +39,6 @@ namespace Discord
 
 
         public LockedDiscordConfig Config { get; protected set; }
-        public ProxyClient Proxy { get; private set; }
 
 
         protected DiscordClient()
@@ -56,20 +53,12 @@ namespace Discord
                 config = new ApiConfig();
 
             Config = new LockedDiscordConfig(config);
-            FinishConfig();
         }
 
         public DiscordClient(string token, ApiConfig config = null) : this(config)
         {
             Token = token;
         }
-
-        protected void FinishConfig()
-        {
-            if (Config.Proxy != null)
-                Proxy = Config.Proxy.CreateProxyClient();
-        }
-
 
         public override string ToString()
         {
