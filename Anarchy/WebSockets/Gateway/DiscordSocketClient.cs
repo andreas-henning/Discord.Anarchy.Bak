@@ -208,11 +208,10 @@ namespace Discord.Gateway
                 Token = token;
 
             if (User.Type == DiscordUserType.Bot && Config.ApiVersion >= 8 && !Config.Intents.HasValue)
-                throw new ArgumentNullException("Gateway intents must be provided as of API v8");
+                throw new ArgumentNullException(nameof(Config) + "." + nameof(Config.Intents), "Gateway intents must be provided as of API v8");
 
             State = GatewayConnectionState.Connecting;
 
-            WebSocket.SetProxy(Proxy);
             WebSocket.Connect();
         }
 
@@ -844,8 +843,10 @@ namespace Discord.Gateway
 
                                 if (Config.Cache)
                                 {
-                                    var list = new List<DiscordThread>(GuildCache[thread.Guild.Id].Threads);
-                                    list.Add(thread);
+                                    var list = new List<DiscordThread>(GuildCache[thread.Guild.Id].Threads)
+                                    {
+                                        thread
+                                    };
 
                                     GuildCache[thread.Guild.Id].Threads = list;
                                 }
@@ -1015,7 +1016,6 @@ namespace Discord.Gateway
                 Reset();
             }
         }
-
 
         public void Dispose()
         {
